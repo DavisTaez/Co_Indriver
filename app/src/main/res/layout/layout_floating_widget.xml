@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/imgBolaFlotante"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@android:drawable/btn_star_big_on"
+        android:contentDescription="Bola Flotante Control Driver"
+        android:focusable="true"
+        android:clickable="true"/>
+
+</FrameLayout>
