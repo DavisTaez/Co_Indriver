@@ -7,8 +7,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import java.util.List;
 import java.util.Locale;
 
@@ -16,6 +14,7 @@ public class AdaptadorCarreras extends RecyclerView.Adapter<AdaptadorCarreras.Ca
 
     public interface OnCarreraEditListener {
         void onEditarCarrera(Carrera carrera, int posicion);
+        void onBorrarCarrera(Carrera carrera, int posicion); // <-- ESTE TE FALTABA
     }
 
     private final List<Carrera> listaCarreras;
@@ -26,45 +25,38 @@ public class AdaptadorCarreras extends RecyclerView.Adapter<AdaptadorCarreras.Ca
         this.listener = listener;
     }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     public CarreraViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_carrera, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_carrera, parent, false);
         return new CarreraViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CarreraViewHolder holder, int position) {
         Carrera carrera = listaCarreras.get(position);
-
-        holder.tvNumeroCarrera.setText("Carrera #" + carrera.getNumero());
+        holder.tvNumeroCarrera.setText("Carrera #" + carrera.getNumero() + " | Veh: " + carrera.vehiculoId);
         holder.tvOdoInicio.setText("Odo Inicio: " + carrera.getOdoInicio() + " km");
-
-        if (carrera.getOdoFin() > 0) {
+        if (carrera.cancelada) {
+            holder.tvOdoFin.setText("ESTADO: CANCELADA");
+            holder.tvValorCarrera.setText(String.format(Locale.US, "Valor: $ %.2f + Prop: $ %.2f", carrera.getValor(), carrera.getPropina()));
+            holder.tvValorCarrera.setTextColor(0xFFFF4444);
+        } else if (carrera.getOdoFin() > 0) {
             holder.tvOdoFin.setText("Odo Fin: " + carrera.getOdoFin() + " km (" + carrera.getKmRecorridos() + " km)");
+            holder.tvValorCarrera.setText(String.format(Locale.US, "Valor: $ %.2f + Prop: $ %.2f", carrera.getValor(), carrera.getPropina()));
+            holder.tvValorCarrera.setTextColor(0xFF00C853);
         } else {
             holder.tvOdoFin.setText("Odo Fin: En curso...");
+            holder.tvValorCarrera.setText(String.format(Locale.US, "Valor: $ %.2f", carrera.getValor()));
         }
-
-        holder.tvValorCarrera.setText(String.format(Locale.US, "Valor: $ %.2f", carrera.getValor()));
-
-        holder.btnEditarCarrera.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onEditarCarrera(carrera, position);
-            }
-        });
+        holder.btnEditarCarrera.setOnClickListener(v -> { if (listener != null) listener.onEditarCarrera(carrera, position); });
+        holder.btnBorrarCarrera.setOnClickListener(v -> { if (listener != null) listener.onBorrarCarrera(carrera, position); });
     }
 
-    @Override
-    public int getItemCount() {
-        return listaCarreras.size();
-    }
+    @Override public int getItemCount() { return listaCarreras.size(); }
 
     public static class CarreraViewHolder extends RecyclerView.ViewHolder {
         TextView tvNumeroCarrera, tvOdoInicio, tvOdoFin, tvValorCarrera;
-        ImageButton btnEditarCarrera;
-
+        ImageButton btnEditarCarrera, btnBorrarCarrera;
         public CarreraViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNumeroCarrera = itemView.findViewById(R.id.tvNumeroCarrera);
@@ -72,6 +64,7 @@ public class AdaptadorCarreras extends RecyclerView.Adapter<AdaptadorCarreras.Ca
             tvOdoFin = itemView.findViewById(R.id.tvOdoFin);
             tvValorCarrera = itemView.findViewById(R.id.tvValorCarrera);
             btnEditarCarrera = itemView.findViewById(R.id.btnEditarCarrera);
+            btnBorrarCarrera = itemView.findViewById(R.id.btnBorrarCarrera);
         }
     }
 }

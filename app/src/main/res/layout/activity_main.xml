@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:background="#F2F2F2"
+    android:padding="12dp">
 
-    <!-- CABECERA: Resumen del Día -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardResumen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp"
-        app:cardBackgroundColor="#FFFFFF">
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="16dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,60 +21,60 @@
 
             <TextView
                 android:id="@+id/tvTotalGanancias"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total: $ 0.00"
-                android:textColor="#2E7D32"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:text="Total Hoy: $ 0.00"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2E7D32" />
 
             <TextView
                 android:id="@+id/tvTotalKm"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Km Recorridos: 0 km"
-                android:textColor="#424242"
-                android:textSize="16sp" />
+                android:text="0 km | 0 carreras"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"/>
+
+            <TextView
+                android:id="@+id/tvEstadoVoz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Presiona para iniciar"
+                android:textStyle="italic"
+                android:gravity="center"
+                android:layout_marginTop="12dp"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- ESTADO DEL RECONOCIMIENTO DE VOZ -->
-    <TextView
-        android:id="@+id/tvEstadoVoz"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/cardResumen"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="Toca el botón para hablar..."
-        android:textColor="#616161"
-        android:textSize="14sp"
-        android:textStyle="italic" />
-
-    <!-- LISTA DE CARRERAS (TARJETAS) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCarreras"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/tvEstadoVoz"
-        android:layout_above="@id/btnBotonVoz"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="12dp"
-        android:clipToPadding="false" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="80dp"/>
 
-    <!-- BOTÓN PRINCIPAL DE VOZ -->
-    <Button
-        android:id="@+id/btnBotonVoz"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="#1E88E5"
-        android:text="Presionar para Hablar"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:cornerRadius="28dp" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/btnBotonVoz"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="PRESIONAR PARA HABLAR"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btnConfig"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:text="⚙️"
+            android:textSize="24sp"/>
+    </LinearLayout>
+</LinearLayout>

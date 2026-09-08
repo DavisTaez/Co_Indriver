@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:hint="Ej. 120515"
+        android:hint="Ej. 120515 - Vacío = En curso"
         android:layout_marginBottom="12dp"/>
 
     <TextView
@@ -58,13 +58,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
-        android:hint="Ej. 3.50"/>
+        android:hint="Ej. 3.50"
+        android:layout_marginBottom="12dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Estado de la Carrera:"
-        android:layout_marginTop="8dp" />
+        android:text="Propina / Adicional ($):"
+        android:textSize="12sp"
+        android:textColor="#2E7D32"
+        android:textStyle="bold"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No paga comisión"
+        android:textSize="10sp"
+        android:textColor="#616161"/>
 
+    <EditText
+        android:id="@+id/etPropina"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="Ej. 1.00"/>
 
 </LinearLayout>
